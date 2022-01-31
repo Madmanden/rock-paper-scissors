@@ -6,4 +6,4 @@ A simple Rock, Paper, Scissors game.
 
 ## To do
 
-- Refactor to use DOM manipulation instead of console.log.
+- Refactor UI to use images and look nice.
