@@ -85,8 +85,5 @@ function checkWinner(playerHand, computerHand) {
 
 while (keepRunning) {
   checkWinner(playerPick(), computerPlay());
-  if (playerScore === 5 || computerScore === 5) {
-    keepRunning = false;
-    console.log("Goodbye, and thanks for playing.");
   }
 }
