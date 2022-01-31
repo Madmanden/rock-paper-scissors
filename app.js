@@ -56,6 +56,11 @@ function showScore(text) {
     gameText.innerText = "GAME OVER";
     score.innerText = "";
     scoreText.innerText = "";
+    if (playerScore > computerScore) {
+      score.innerText += "Player won!";
+    } else {
+      score.innerText += "Computer won!";
+    }
   }
 }
 
