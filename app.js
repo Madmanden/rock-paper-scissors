@@ -1,89 +1,115 @@
 // Rock, Paper, Scissors
 
 let keepRunning = true;
+
 let playerScore = 0;
 let computerScore = 0;
 
-function playerPick() {
-  let input = prompt(`(R)ock, (P)aper, (S)cissors, or (Q)uit?`);
-  let playerHand;
+function playerHand() {
+  let selectButtonRock = document.querySelector(".rock");
+  let selectButtonPaper = document.querySelector(".paper");
+  let selectButtonScissors = document.querySelector(".scissors");
 
-  if (input.toLowerCase() === "q" || input.toLowerCase() === "quit") {
-    keepRunning = false;
-  }
+  selectButtonRock.addEventListener("click", () => {
+    //return gameRound(playerHand, computerPlay());
+    return handleClick("rock");
+  });
 
-  if (input.toLowerCase() === "r" || input.toLowerCase() === "rock") {
-    playerHand = "rock";
-  }
+  selectButtonPaper.addEventListener("click", () => {
+    return handleClick("paper");
+  });
 
-  if (input.toLowerCase() === "p" || input.toLowerCase() === "paper") {
-    playerHand = "paper";
-  }
-
-  if (input.toLowerCase() === "s" || input.toLowerCase() === "scissors") {
-    playerHand = "scissors";
-  }
-  return playerHand;
+  selectButtonScissors.addEventListener("click", () => {
+    return handleClick("scissors");
+  });
 }
 
-function computerPlay() {
+function handleClick(playerPick) {
+  gameRound(playerPick, computerHand());
+}
+
+function computerHand() {
   choices = ["rock", "paper", "scissors"];
   let computerHand = choices[Math.floor(Math.random() * choices.length)];
   return computerHand;
 }
 
-function showScore() {
-  console.log(`  Player score:   ${playerScore}
-  Computer score: ${computerScore}`);
+function gameRound(playerHand, computerHand) {
+  const gameText = document.querySelector(".gameText");
+
+  if (playerHand && keepRunning) {
+    gameText.innerText = `Player chose: ${playerHand} \n`;
+    gameText.innerText += `Computer chose: ${computerHand}`;
+    checkWinner(playerHand, computerHand);
+  }
+}
+
+function showScore(text) {
+  const score = document.querySelector(".score");
+  const scoreText = document.querySelector(".scoreText");
+  const gameText = document.querySelector(".gameText");
+
+  score.innerText = `Player: ${playerScore}
+  Computer: ${computerScore}`;
+  scoreText.innerText = text;
+
+  if (!keepRunning) {
+    gameText.innerText = "GAME OVER";
+    score.innerText = "";
+    scoreText.innerText = "";
+  }
 }
 
 function checkWinner(playerHand, computerHand) {
+  if (playerScore === 5 || computerScore === 5) {
+    keepRunning = false;
+  }
+
   if (playerHand === computerHand) {
-    console.log(`It's a draw! You both picked ${playerHand}`);
-    showScore();
+    scoreText = `It's a draw! You both picked ${playerHand}`;
+    //playerScore++;
+    //computerScore++;
+    showScore(scoreText);
   } else {
     switch (playerHand) {
       case "rock":
         if (computerHand === "paper") {
           computerScore++;
-          console.log(`You lose! Computer picked paper.`);
-          showScore();
+          scoreText = `You lose! Computer picked paper.`;
+          showScore(scoreText);
         }
         if (computerHand === "scissors") {
           playerScore++;
-          console.log(`You win! Computer picked scissors.`);
-          showScore();
+          scoreText = `You win! Computer picked scissors.`;
+          showScore(scoreText);
         }
         break;
       case "paper":
         if (computerHand === "rock") {
           playerScore++;
-          console.log(`You win! Computer picked rock.`);
-          showScore();
+          scoreText = `You win! Computer picked rock.`;
+          showScore(scoreText);
         }
         if (computerHand === "scissors") {
           computerScore++;
-          console.log(`You lose! Computer picked scissors.`);
-          showScore();
+          scoreText = `You lose! Computer picked scissors.`;
+          showScore(scoreText);
         }
         break;
       case "scissors":
         if (computerHand === "rock") {
           computerScore++;
-          console.log(`You lose! Computer picked rock.`);
-          showScore();
+          scoreText = `You lose! Computer picked rock.`;
+          showScore(scoreText);
         }
         if (computerHand === "paper") {
           playerScore++;
-          console.log(`You win! Computer picked paper.`);
-          showScore();
+          sccoreText = `You win! Computer picked paper.`;
+          showScore(scoreText);
         }
         break;
     }
   }
 }
 
-while (keepRunning) {
-  checkWinner(playerPick(), computerPlay());
-  }
-}
+gameRound(playerHand(), computerHand());
