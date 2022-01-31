@@ -11,7 +11,6 @@ function playerHand() {
   let selectButtonScissors = document.querySelector(".scissors");
 
   selectButtonRock.addEventListener("click", () => {
-    //return gameRound(playerHand, computerPlay());
     return handleClick("rock");
   });
 
