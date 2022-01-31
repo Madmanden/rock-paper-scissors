@@ -67,8 +67,6 @@ function checkWinner(playerHand, computerHand) {
 
   if (playerHand === computerHand) {
     scoreText = `It's a draw! You both picked ${playerHand}`;
-    //playerScore++;
-    //computerScore++;
     showScore(scoreText);
   } else {
     switch (playerHand) {
